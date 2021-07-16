@@ -1,0 +1,173 @@
+iptables -N xboxone
+iptables -N xboxtwo
+iptables -N xboxthree
+iptables -N xboxfour
+iptables -N xboxfive
+iptables -N xboxsix
+iptables -N xboxseven
+iptables -N xboxeight
+iptables -N xboxnine
+iptables -N xboxten
+iptables -N xboxeleven
+iptables -N xboxtwelve
+
+
+iptables -I FORWARD 1 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j xboxone
+iptables -I FORWARD 2 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j xboxtwo
+iptables -I FORWARD 3 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j xboxthree
+iptables -I FORWARD 4 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j xboxfour
+iptables -I FORWARD 5 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j xboxfive
+iptables -I FORWARD 6 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j xboxsix
+iptables -I FORWARD 7 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j xboxseven
+iptables -I FORWARD 8 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j xboxeight
+iptables -I FORWARD 9 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j xboxnine
+iptables -I FORWARD 10 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j xboxten
+iptables -I FORWARD 11 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j xboxeleven
+iptables -I FORWARD 12 -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j xboxtwelve
+iptables -I FORWARD 13 -s 10.42.0.0/24 -m string --string "xboxpwid" --algo bm --to 65535 -j REJECT
+
+
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxone -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwo -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxthree -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfour -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxfive -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxsix -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxseven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeight -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxnine -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxten -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxeleven -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_12>" --algo bm --to 65535 -j ACCEPT
+
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_1>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_2>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_3>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_4>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_5>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_6>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_7>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_8>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_9>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_10>" --algo bm --to 65535 -j ACCEPT
+iptables -I xboxtwelve -s 10.42.0.0/24 -p udp -m string --string "<last_16_chars_of_player_11>" --algo bm --to 65535 -j ACCEPT
+

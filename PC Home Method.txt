@@ -1,0 +1,260 @@
+﻿Done with ubuntu-21.04-desktop-amd64.
+
+
+For the solution to work, at the moment you are going to need a Linux based system. Linux is just a different operating system, same as for example Windows but with a different look/feel/behaviour. 
+
+
+Important is that your Linux system has at least two network cards. One of those network cards needs to be connected to the internet the same as a normal PC or laptop would. The other network card will be connected to your PlayStation/Xbox's/Steam PCs. Note that the second network card could also be a WiFi card that you turn into a hotspot.
+
+
+For this example I am going to use Ubuntu Desktop, so note that some commands might look different in case you have a different distribution.
+
+
+In my setup, my Linux system is connected the following way:
+
+
+Network card 1 (a built in network card or NIC) - Internet. IP: 6.6.6.6 netmask: 255.255.255.0 (or /24)
+Network card 2 (a PCIe network card) - To the PlayStation's: IP: 10.42.0.7 netmask: 255.255.255.0 (or /24)
+
+
+Once Linux has been installed click here: https://discord.com/channels/631961214515150848/840665036707725372/841281872922935297
+
+
+Now you will need to allow network traffic to go between the two network cards. 
+
+
+First of all it's best to get root so you don't have any file permission error's type in this command: sudo -i
+
+
+To enable IP forwarding type: sudo echo 1 > /proc/sys/net/ipv4/ip_forward
+
+
+Note that this setting will be gone after a reboot of your Linux system. If you want to make it permanent, edit the following line in the file /etc/sysctl.conf by using sudo nano /etc/sysctl.conf
+
+
+Look for the following line #net.ipv4.ip_forward = 1 edit out the # so you have just net.ipv4.ip_forward = 1
+
+
+Now press ctrl+x then Y followed by enter this will save your changes.
+
+
+And either reboot your system or load the new systemctl configuration using: sudo sysctl -p
+Scrota, Sack Of Oryx — 05/08/2021
+Check if your Playstation/Xbox/Steam client can connect to the internet now. If not, you need to check your setup and that is beyond the scope of this tutorial.
+
+
+Now, you will need to know the name of your network cards on your linux system, you can check that with various commands, for example with ifconfig or with ip a. 
+
+
+The following is an exemplary output, the names can/will look different on your system.
+ 
+ifconfig example:
+
+
+eno1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 6.6.6.6 netmask 255.255.255.0 broadcast 6.6.6.255
+        inet6 fe80::21f:c6ff:fe9c:1b47  prefixlen 64  scopeid 0x20<link>
+        ether 00:1f:c6:9c:1b:47  txqueuelen 1000  (Ethernet)
+        RX packets 103776  bytes 141374170 (141.3 MB)
+        RX errors 0  dropped 1625  overruns 0  frame 0
+        TX packets 27826  bytes 2768130 (2.7 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 16  memory 0xdc200000-dc220000
+
+
+enxc05627b11978: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.42.0.1 netmask 255.255.255.0  broadcast 10.42.0.255
+        inet6 fe80::c256:27ff:feb1:1978  prefixlen 64  scopeid 0x20<link>
+        ether c0:56:27:b1:19:78  txqueuelen 1000  (Ethernet)
+        RX packets 30456  bytes 2442205 (2.4 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 98798  bytes 138107464 (138.1 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+ 
+ip a example:
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:1f:c6:9c:1b:47 brd ff:ff:ff:ff:ff:ff
+    altname enp0s31f6
+    inet 6.6.6.6/24 brd 6.6.6.255 scope global dynamic eno1
+       valid_lft 83112sec preferred_lft 83112sec
+    inet6 fe80::21f:c6ff:fe9c:1b47/64 scope link
+       valid_lft forever preferred_lft forever
+3: enxc05627b11978: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether c0:56:27:b1:19:78 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.1/24 brd 10.0.0.255 scope global enxc05627b11978
+       valid_lft forever preferred_lft forever
+    inet6 fe80::c256:27ff:feb1:1978/64 scope link
+       valid_lft forever preferred_lft forever
+ 
+You can see the IP addresses in the above example, and in this case my network card connected to the internet is named eno1 and the network card connected to my gaming systems is called enxc05627b11978.
+ 
+Next, you will need to find out the ID of the gaming system you are trying to connect to the internet. To do that you use a so called packet sniffer or network inspection tool. In our case, we are going to use a tool called "wireshark" and its command line tool called "tshark". First, install the tools: sudo apt-get install wireshark tshark
+Scrota, Sack Of Oryx — 05/08/2021
+ 
+Replace <network card name> with the name of the network card connected to your gaming systems.
+ 
+For PlayStation: sudo tshark -i <network card name> -x -Y "udp" | grep -A1 psn-4
+
+
+For Xbox: sudo tshark -i <network card name> -x -Y "udp" | grep -A1 xboxpwid
+
+
+For Steam: sudo tshark -i <network card name> -x -Y "udp" | grep -A1 steamid
+
+
+Example for PlayStation if my network card name is enp3s0 I would type: sudo tshark -i enp3s0 -x -Y "udp" | grep -A1 psn-4
+
+
+When that command is running, fire up Destiny, and join yourself or get someone else to join you in orbit then back out and the ID's will show in terminal. 
+
+
+Now in your Linux console, you'll see a number of lines scrolling with some strange text, don't worry about that, that is what we are looking for. 
+
+
+To stop sniffing ID's press ctrl+c on the keyboard.
+
+
+An example output on PlayStation can look like this:
+
+
+0030  35 60 01 ca 0d 3a 18 73 74 72 3a 70 73 6e 2d 34   5...:.str:psn-4
+0040  30 30 30 30 30 30 30 30 30 41 43 45 45 33 44      000000000ACEE3D
+
+
+0100  73 74 72 3a 70 73 6e 2d 34 30 30 30 30 30 30 30   str:psn-40000000
+0110  30 30 41 43 45 35 44 33 1a 40 4e 64 7f b8 a3 ed   00ACE5D3.@Nd....
+ 
+You can discard the columns with the numbers on the left. What we are interested in, is the psn-4000 section on the right two lines. For a PlayStation system, you take the psn-4 and the next 15 characters after the number 4. 
+
+
+So in the example above those would be: psn-4000000000ACEE3D We shorten that to just the last 6 chars ACEE3D when adding it to the IP-Tables.
+
+
+What you should see is that there is one ID that shows up again and again in the output. Since you are the only person starting different activities, that is going to be your PlayStation ID that we are going to use for the rest of the examples. Do the same thing for your second PlayStation and note down that ID as well.
+ 
+Next, make sure that the Linux firewall iptables is installed: sudo apt-get install iptables iptables-persistent
+ 
+Then start iptables: sudo service iptables start
+
+
+Now, we are going to create some firewall rules. First thing, we need two so called chains, one for each PlayStation: (please see pinned posts for other examples)
+
+
+iptables -N psnallow1
+iptables -N psnallow2
+
+
+Then, we are going to load the rules that limit matchmaking to only the two PlayStation's. Replace <PSID1> with the entire psn-4000 id that you found above. Do the same thing with <PSID2 and the id of your second PlayStation.:
+
+
+iptables -I FORWARD 1 -s <network/netmask> -p udp -m string --algo bm --string "<PSID1>" -j psnallow1
+iptables -I FORWARD 2 -s <network/netmask> -p udp -m string --algo bm --string "<PSID2>" -j psnallow2
+iptables -I FORWARD 3 -s <network/netmask> -m string --string "psn-4" --algo bm  -j REJECT
+
+
+iptables -I psnallow1 1 -s <network/netmask> -p udp -m string --algo bm --string "<PSID2>" -j ACCEPT
+iptables -I psnallow2 1 -s <network/netmask> -p udp -m string --algo bm --string "<PSID1>" -j ACCEPT
+
+
+When doing this, make sure you also remove the < and > characters in the PSID part!
+ 
+In the above example, you will need to also replace the network and net-mask with your specific values. 
+
+
+Easiest to figure this out is to use the ip a command and look at the network interface that is connected to your gaming systems. In my case that is 10.42.0.1/24. Next, go to http://jodies.de/ipcalc and put in your ip address in the address field, and the number after the slash (24 in my case) in the netmask field. Then click the "calculate" button. Then simply copy the value that shows after "Network:". So here is an example using my network and the two psn-4 IDs from above:
+
+
+iptables -I FORWARD 1 -s 10.42.0.0/24 -p udp -m string --algo bm --string "psn-40000000007E0A66" -j psnallow1
+iptables -I FORWARD 2 -s 10.42.0.0/24 -p udp -m string --algo bm --string "psn-40000000038B8172" -j psnallow2
+iptables -I FORWARD 3 -s 10.42.0.0/24 -m string --string "psn-4" --algo bm  -j REJECT
+
+
+iptables -I psnallow1 1 -s 10.42.0.0/24 -p udp -m string --algo bm --string "psn-40000000038B8172" -j ACCEPT
+iptables -I psnallow2 1 -s 10.42.0.0/24 -p udp -m string --algo bm --string "psn-40000000007E0A66" -j ACCEPT
+ 
+Next, make sure to save the iptables rules: iptables-save > /etc/iptables/rules.v4
+
+
+Stop iptables: sudo service iptables stop
+Start iptables: sudo service iptables start
+Load rules: sudo iptables-restore < /etc/iptables/rules.v4
+ 
+
+
+Time for you to test that you can go tower solo and also match-make with yourself in say rumble or control.
+
+
+Assuming everything is now working it's now time to create an iptable for all 6 players, see example templates below to make this step even easier for you. 
+ 
+ 
+Commands to run after a reboot: 
+
+
+Typically after reboot the IP-Tables will not be enabled so to re-start them open terminal and run these commands in order:
+
+
+Get root access sudo -i
+
+
+Start iptables: sudo service iptables start
+
+
+Load rules: sudo iptables-restore < /etc/iptables/rules.v4
+
+
+This will re-enable the iptables rules. :thumbsup:
+
+
+
+
+Extra commands you might need:
+
+
+Get root access:
+
+
+sudo -i this will prevent permission issues.
+
+
+How to delete a line or flush all lines:
+
+
+To list all rules:
+
+
+sudo iptables -S
+
+
+To delete a line:
+
+
+sudo iptables -D "followed by line you want to delete here"
+
+
+sudo iptables -F  to flush all tables:
+
+
+Some people seem to be getting stuck on how to share the incoming internet on the Ubuntu install with other devices/consoles. I have tried to explain this the best I can. If you get stuck, look at it again.
+ 
+Step 1: on Ubuntu desktop go to top right corner and click on networks (see pic below) then wired settings.
+ 
+
+
+
+
+ 
+Step 2: Now click on the cog that is for the output network card for your machine (see pic below) for example, if you don't know which one this is pull out the network cable wait a few moments and it will say not connected.
+ 
+ 
+
+
+
+
+Scrota, Sack Of Oryx — 05/10/2021
+Step 3: Now click on IPv4 & then select "Shared to other computers"
+ 
+ 
+
+
+ 
+Step 4: Click Apply and you are done.
