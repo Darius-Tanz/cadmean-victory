@@ -17,9 +17,6 @@ Network card 1 (a built in network card or NIC) - Internet. IP: 6.6.6.6 netmask:
 Network card 2 (a PCIe network card) - To the PlayStation's: IP: 10.42.0.7 netmask: 255.255.255.0 (or /24)
 
 
-Once Linux has been installed click here: https://discord.com/channels/631961214515150848/840665036707725372/841281872922935297
-
-
 Now you will need to allow network traffic to go between the two network cards. 
 
 
@@ -39,7 +36,6 @@ Now press ctrl+x then Y followed by enter this will save your changes.
 
 
 And either reboot your system or load the new systemctl configuration using: sudo sysctl -p
-Scrota, Sack Of Oryx — 05/08/2021
 Check if your Playstation/Xbox/Steam client can connect to the internet now. If not, you need to check your setup and that is beyond the scope of this tutorial.
 
 
@@ -89,7 +85,6 @@ ip a example:
 You can see the IP addresses in the above example, and in this case my network card connected to the internet is named eno1 and the network card connected to my gaming systems is called enxc05627b11978.
  
 Next, you will need to find out the ID of the gaming system you are trying to connect to the internet. To do that you use a so called packet sniffer or network inspection tool. In our case, we are going to use a tool called "wireshark" and its command line tool called "tshark". First, install the tools: sudo apt-get install wireshark tshark
-Scrota, Sack Of Oryx — 05/08/2021
  
 Replace <network card name> with the name of the network card connected to your gaming systems.
  
@@ -238,23 +233,8 @@ Some people seem to be getting stuck on how to share the incoming internet on th
  
 Step 1: on Ubuntu desktop go to top right corner and click on networks (see pic below) then wired settings.
  
-
-
-
-
- 
 Step 2: Now click on the cog that is for the output network card for your machine (see pic below) for example, if you don't know which one this is pull out the network cable wait a few moments and it will say not connected.
  
- 
-
-
-
-
-Scrota, Sack Of Oryx — 05/10/2021
 Step 3: Now click on IPv4 & then select "Shared to other computers"
- 
- 
-
-
  
 Step 4: Click Apply and you are done.
